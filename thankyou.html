@@ -1,1 +1,292 @@
-not
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Payment Successful — ecomeasy</title>
+
+  <!-- Meta Pixel -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '865687835806352');
+  fbq('track', 'PageView');
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Noto+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Noto Sans', sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px 48px;
+    }
+
+    .logo {
+      font-family: 'Baloo 2', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      color: #ff6b00;
+      margin-bottom: 32px;
+      letter-spacing: 0.3px;
+    }
+    .logo span { color: #1a1a2e; }
+
+    .card {
+      background: #fff;
+      border-radius: 24px;
+      padding: 40px 32px 36px;
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.10);
+      border-top: 4px solid #ff6b00;
+      animation: slideUp 0.5s cubic-bezier(.22,1,.36,1) both;
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .check-circle {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #16a34a, #22c55e);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      box-shadow: 0 0 0 12px rgba(22,163,74,0.1), 0 0 0 24px rgba(22,163,74,0.05);
+      animation: popIn 0.5s 0.2s cubic-bezier(.34,1.56,.64,1) both;
+    }
+    @keyframes popIn {
+      from { transform: scale(0.5); opacity: 0; }
+      to   { transform: scale(1);   opacity: 1; }
+    }
+    .check-circle svg { width: 38px; height: 38px; }
+
+    h1 {
+      font-family: 'Baloo 2', sans-serif;
+      font-size: 26px;
+      font-weight: 800;
+      color: #1a1a2e;
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+    .sub {
+      font-size: 14px;
+      color: #64748b;
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+
+    /* REDIRECT BOX */
+    .redirect-box {
+      background: #fff3e8;
+      border: 1.5px solid #ffd9b3;
+      border-radius: 14px;
+      padding: 18px 20px;
+      margin-bottom: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    .redirect-text {
+      font-size: 14px;
+      color: #cc5500;
+      font-weight: 700;
+    }
+    .redirect-sub {
+      font-size: 12px;
+      color: #ff6b00;
+    }
+    .spinner {
+      width: 22px;
+      height: 22px;
+      border: 3px solid #ffd9b3;
+      border-top-color: #ff6b00;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ACCESS BUTTON */
+    .btn-access {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      background: linear-gradient(135deg, #ff6b00, #cc5500);
+      color: #fff;
+      font-family: 'Noto Sans', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      padding: 17px 24px;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 4px 20px rgba(255,107,0,0.45);
+      transition: transform .15s, box-shadow .15s;
+      margin-bottom: 8px;
+    }
+    .btn-access:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(255,107,0,0.5); }
+    .btn-access:active { transform: scale(0.98); }
+
+    .btn-note {
+      font-size: 12px;
+      color: #94a3b8;
+      margin-bottom: 28px;
+    }
+
+    /* DIVIDER */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .divider-line { flex: 1; height: 1px; background: #e2e8f0; }
+    .divider-text { font-size: 12px; color: #94a3b8; font-weight: 600; white-space: nowrap; }
+
+    /* SUPPORT BOX */
+    .support-box {
+      background: #f0fdf4;
+      border: 1.5px solid #bbf7d0;
+      border-radius: 14px;
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-align: left;
+      text-decoration: none;
+      color: inherit;
+      transition: box-shadow .15s;
+      cursor: pointer;
+    }
+    .support-box:hover { box-shadow: 0 4px 16px rgba(37,211,102,0.2); }
+    .support-icon { font-size: 32px; flex-shrink: 0; }
+    .support-title { font-size: 14px; font-weight: 700; color: #166534; margin-bottom: 2px; }
+    .support-sub { font-size: 12px; color: #16a34a; }
+    .support-arrow { margin-left: auto; font-size: 18px; color: #4ade80; flex-shrink: 0; }
+
+    .footer-note {
+      margin-top: 28px;
+      font-size: 11px;
+      color: #cbd5e1;
+      text-align: center;
+    }
+    .footer-note a { color: #94a3b8; text-decoration: none; }
+
+    @media(max-width:480px) {
+      .card { padding: 32px 20px 28px; }
+      h1 { font-size: 22px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="logo">ECOMEASY<span>TOOL</span></div>
+
+  <div class="card">
+
+    <div class="check-circle">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+
+    <h1>Payment Ho Gayi! 🎉</h1>
+    <p class="sub">
+      Aapka ₹99 payment successfully receive hua.<br>
+      Aapko Google Drive folder pe redirect kiya jaa raha hai — tool wahan se milega.
+    </p>
+
+    <!-- AUTO REDIRECT STATUS -->
+    <div class="redirect-box">
+      <div class="spinner"></div>
+      <div class="redirect-text">Drive folder khul raha hai...</div>
+      <div class="redirect-sub" id="countdownText">3 second mein redirect hoga</div>
+    </div>
+
+    <!-- MANUAL DRIVE BUTTON (fallback) -->
+    <a class="btn-access"
+       href="https://drive.google.com/drive/folders/1T_yD-PvalR9wi4WI6doCmFFGpMHL6_T_?usp=drive_link"
+       target="_blank">
+      📦 Tool Access Karo — Click Here
+    </a>
+    <div class="btn-note">⬆️ Agar auto-redirect na ho to ye button dabao</div>
+
+    <!-- DIVIDER -->
+    <div class="divider">
+      <div class="divider-line"></div>
+      <div class="divider-text">Koi dikkat? Support yahan hai</div>
+      <div class="divider-line"></div>
+    </div>
+
+    <!-- WHATSAPP SUPPORT BOX -->
+    <a class="support-box"
+       href="https://wa.me/918595735564?text=Hi%21%20Maine%20%E2%82%B999%20payment%20ki%20hai%20aur%20mujhe%20tool%20setup%20mein%20help%20chahiye."
+       target="_blank">
+      <div class="support-icon">💬</div>
+      <div>
+        <div class="support-title">Any Issue? WhatsApp Karo</div>
+        <div class="support-sub">+91 85957 35564 · Mon–Sat 10AM–8PM IST</div>
+      </div>
+      <div class="support-arrow">→</div>
+    </a>
+
+  </div>
+
+  <div class="footer-note">
+    🌐 <a href="https://ecomeasy.store">ecomeasy.store</a> &nbsp;·&nbsp; © 2026 ecomeasy · All rights reserved
+  </div>
+
+  <script>
+    // Cashfree order_id query param (if present) — used for dedup
+    var params = new URLSearchParams(window.location.search);
+    var orderId = params.get('order_id') || params.get('cf_order_id') || '';
+
+    // Fire Purchase event only once per order (or once per session if no order_id)
+    var dedupKey = 'purchase_event_fired_' + (orderId || 'generic');
+    if (!sessionStorage.getItem(dedupKey)) {
+      fbq('track', 'Purchase', { value: 99, currency: 'INR' });
+      sessionStorage.setItem(dedupKey, 'true');
+    }
+
+    var driveUrl = 'https://drive.google.com/drive/folders/1T_yD-PvalR9wi4WI6doCmFFGpMHL6_T_?usp=drive_link';
+
+    // Auto-redirect countdown
+    var seconds = 3;
+    var countdownEl = document.getElementById('countdownText');
+    var interval = setInterval(function () {
+      seconds--;
+      if (seconds > 0) {
+        countdownEl.textContent = seconds + ' second mein redirect hoga';
+      } else {
+        clearInterval(interval);
+        window.location.href = driveUrl;
+      }
+    }, 1000);
+  </script>
+
+</body>
+</html>
