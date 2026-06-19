@@ -5,6 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Payment Successful — ecomeasy</title>
 
+  <!-- Google tag (GA4) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-C2FP9T6F0M"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-C2FP9T6F0M');
+  </script>
+
   <!-- Meta Pixel -->
   <script>
   !function(f,b,e,v,n,t,s)
@@ -96,7 +105,6 @@
       margin-bottom: 28px;
     }
 
-    /* REDIRECT BOX */
     .redirect-box {
       background: #fff3e8;
       border: 1.5px solid #ffd9b3;
@@ -127,7 +135,6 @@
     }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* ACCESS BUTTON */
     .btn-access {
       display: flex;
       align-items: center;
@@ -157,7 +164,6 @@
       margin-bottom: 28px;
     }
 
-    /* DIVIDER */
     .divider {
       display: flex;
       align-items: center;
@@ -167,7 +173,6 @@
     .divider-line { flex: 1; height: 1px; background: #e2e8f0; }
     .divider-text { font-size: 12px; color: #94a3b8; font-weight: 600; white-space: nowrap; }
 
-    /* SUPPORT BOX */
     .support-box {
       background: #f0fdf4;
       border: 1.5px solid #bbf7d0;
@@ -216,18 +221,16 @@
 
     <h1>Payment Ho Gayi! 🎉</h1>
     <p class="sub">
-      Aapka ₹99 payment successfully receive hua.<br>
+      Aapka payment successfully receive hua.<br>
       Aapko Google Drive folder pe redirect kiya jaa raha hai — tool wahan se milega.
     </p>
 
-    <!-- AUTO REDIRECT STATUS -->
     <div class="redirect-box">
       <div class="spinner"></div>
       <div class="redirect-text">Drive folder khul raha hai...</div>
       <div class="redirect-sub" id="countdownText">3 second mein redirect hoga</div>
     </div>
 
-    <!-- MANUAL DRIVE BUTTON (fallback) -->
     <a class="btn-access"
        href="https://drive.google.com/drive/folders/1T_yD-PvalR9wi4WI6doCmFFGpMHL6_T_?usp=drive_link"
        target="_blank">
@@ -235,16 +238,14 @@
     </a>
     <div class="btn-note">⬆️ Agar auto-redirect na ho to ye button dabao</div>
 
-    <!-- DIVIDER -->
     <div class="divider">
       <div class="divider-line"></div>
       <div class="divider-text">Koi dikkat? Support yahan hai</div>
       <div class="divider-line"></div>
     </div>
 
-    <!-- WHATSAPP SUPPORT BOX -->
     <a class="support-box"
-       href="https://wa.me/918595735564?text=Hi%21%20Maine%20%E2%82%B999%20payment%20ki%20hai%20aur%20mujhe%20tool%20setup%20mein%20help%20chahiye."
+       href="https://wa.me/918595735564?text=Hi%21%20Maine%20payment%20ki%20hai%20aur%20mujhe%20tool%20setup%20mein%20help%20chahiye."
        target="_blank">
       <div class="support-icon">💬</div>
       <div>
@@ -261,14 +262,33 @@
   </div>
 
   <script>
-    // Cashfree order_id query param (if present) — used for dedup
+    // ── Read Cashfree return params ──
     var params = new URLSearchParams(window.location.search);
-    var orderId = params.get('order_id') || params.get('cf_order_id') || '';
+    var orderId = params.get('order_id') || params.get('cf_order_id') || ('order_' + Date.now());
 
-    // Fire Purchase event only once per order (or once per session if no order_id)
-    var dedupKey = 'purchase_event_fired_' + (orderId || 'generic');
+    // Try to read actual paid amount from Cashfree return URL.
+    // Cashfree usually returns order_amount — fallback to 99 if not present.
+    var amount = parseFloat(params.get('order_amount')) || 99;
+
+    // ── Dedup key so a refresh / re-visit doesn't double count ──
+    var dedupKey = 'purchase_event_fired_' + orderId;
+
     if (!sessionStorage.getItem(dedupKey)) {
-      fbq('track', 'Purchase', { value: 99, currency: 'INR' });
+      // Meta Pixel — eventID lets this dedupe against a future server-side
+      // Conversions API event for the same order_id
+      fbq('track', 'Purchase',
+        { value: amount, currency: 'INR' },
+        { eventID: orderId }
+      );
+
+      // GA4 — purchase event
+      gtag('event', 'purchase', {
+        transaction_id: orderId,
+        value: amount,
+        currency: 'INR',
+        items: [{ item_name: 'EcomEasy Tool', price: amount, quantity: 1 }]
+      });
+
       sessionStorage.setItem(dedupKey, 'true');
     }
 
